@@ -47,7 +47,9 @@ encode string = encodeLoop emptyString
 
 -- Bonus #2
 dropN :: Int -> String -> String
-dropN = undefined
+dropN _ [] = []
+dropN 0 (x:xs) = x : xs
+dropN number (x:xs) = dropN (number - 1) xs
 
 
 --Assume we'll be decoding only valid words
