@@ -1,25 +1,48 @@
 import Data.Char(toLower)
 
 
-isChar :: Char -> Bool
-isChar = undefined
+isLetter :: Char -> Bool
+isLetter char 
+	| toLower char >= 'a' 
+	  && toLower char <= 'z' = True
+	|otherwise = False
 
 
 isVowel :: Char -> Bool
-isVowel = undefined
+isVowel letter | toLower letter == 'a' = True
+	       | toLower letter == 'e' = True
+	       | toLower letter == 'i' = True
+	       | toLower letter == 'o' = True
+	       | toLower letter == 'u' = True
+	       | toLower letter == 'y' = True
+	       | otherwise = False
 
 
 isConsonant :: Char -> Bool
-isConsonant = undefined
+isConsonant letter | isLetter letter == True 
+		     && isVowel letter == False = True 
+		   | otherwise = False
+
+emptyString = "" :: String
+
+
+getReverseString :: String -> String -> String
+getReverseString acc [] = acc
+getReverseString acc (x:xs) = getReverseString (x : acc) xs
+
+
+encodeLoop :: String -> String -> String
+encodeLoop acc []     = acc
+encodeLoop acc (x:xs) | isLetter x == True
+		    && isConsonant x == True = encodeLoop (x : 'o' : x : acc) xs
+		  | otherwise = encodeLoop (x : acc) xs 
 
 
 encode :: String -> String
-encode = undefined
+encode string = encodeLoop emptyString 
+			     (getReverseString emptyString string)
 
 
--- Bonus #1
-encode' :: String -> String
-encode' = undefined
 
 
 -- Bonus #2
