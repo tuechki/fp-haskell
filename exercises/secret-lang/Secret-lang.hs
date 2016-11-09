@@ -52,4 +52,15 @@ dropN = undefined
 
 --Assume we'll be decoding only valid words
 decode :: String -> String
-decode = undefined
+decode [] = []
+decode (first : second : third : rest) 
+	| isConsonant first == True 
+	  && second == 'o' 
+	  && toLower first == toLower third = first : decode rest
+	| otherwise = first : decode (second : third : rest)
+decode (x:rest) = x : decode rest
+
+
+
+
+
